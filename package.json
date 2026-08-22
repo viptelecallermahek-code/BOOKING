@@ -10,7 +10,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "start": "node server.js"
+    "start": "npm run build && node server.js",
+    "production": "npm run build && node server.js"
   },
   "dependencies": {
     "axios": "^1.4.0",

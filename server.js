@@ -37,6 +37,10 @@ const connectDB = async (attempt = 1) => {
 
 connectDB();
 
+// Serve static files from React build
+const path = require('path');
+app.use(express.static(path.join(__dirname, 'build')));
+
 // Routes
 const authRoutes = require('./routes/auth');
 app.use('/api/auth', authRoutes);
@@ -49,6 +53,11 @@ app.use('/api/settings', require('./routes/settings'));
 // Health Check
 app.get('/api/health', (req, res) => {
   res.json({ status: 'Server is running', timestamp: new Date() });
+});
+
+// Serve React app for all other routes
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 
 // Error handling middleware
